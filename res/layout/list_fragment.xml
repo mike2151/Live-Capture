@@ -47,23 +47,6 @@
             android:textAppearance="?android:textAppearanceLarge" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginStart="4dip"
-            android:fontFamily="sans-serif-condensed"
-            android:text="@string/pick_one_of_your_videos_to_submit"
-            android:textAppearance="?android:textAppearanceMedium"></TextView>
-    </LinearLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

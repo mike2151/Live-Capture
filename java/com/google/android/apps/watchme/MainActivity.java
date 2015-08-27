@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -71,6 +72,10 @@ public class MainActivity extends Activity implements
     private String mChosenAccountName;
     private ImageFetcher mImageFetcher;
     private EventsListFragment mEventsListFragment;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +160,16 @@ public class MainActivity extends Activity implements
         getLiveEvents();
     }
 
+    //function to switch cameras
+    public void switchcameras() {
+      //STILL NEEDS TO BE DONE
+      //STILL NEEDS TO BE DONE
+      //STILL NEEDS TO BE DONE
+      //STILL NEEDS TO BE DONE
+      //STILL NEEDS TO BE DONE
+
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -164,6 +179,7 @@ public class MainActivity extends Activity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.activity_main, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -175,6 +191,9 @@ public class MainActivity extends Activity implements
                 break;
             case R.id.menu_accounts:
                 chooseAccount();
+                return true;
+            case R.id.switchcameras:
+                switchcameras();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -379,7 +398,7 @@ public class MainActivity extends Activity implements
 
 
             progressDialog.dismiss();
-            //experiment with onclick to allow refresh with onclick
+
 
 
         }

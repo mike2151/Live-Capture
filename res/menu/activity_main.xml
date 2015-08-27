@@ -18,9 +18,16 @@
     <item
         android:id="@+id/menu_accounts"
         android:icon="@drawable/ic_mailboxes_accounts"
-        android:title="@string/accounts" />
+        android:title="@string/accounts"
+        android:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_refresh"
         android:icon="@drawable/ic_menu_refresh"
-        android:title="@string/refresh" />
+        android:title="@string/refresh"
+        android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/switchcameras"
+        android:icon="@drawable/ic_camera"
+        android:title="@string/camera"
+        android:showAsAction="ifRoom"/>
 </menu>

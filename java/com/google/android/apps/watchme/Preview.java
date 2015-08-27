@@ -15,8 +15,10 @@
 package com.google.android.apps.watchme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -109,6 +111,8 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
         // The Surface has been created, acquire the camera and tell it where
         // to draw.
         try {
+
+
             setCamera(Utils.getCamera(Camera.CameraInfo.CAMERA_FACING_BACK));
             if (camera != null) {
                 camera.setPreviewDisplay(holder);

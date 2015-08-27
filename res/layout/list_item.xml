@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:layout_marginBottom="8dp"
-            android:background="#1000"
+            android:background="@drawable/thumbnail"
             android:contentDescription="@string/videoThumbnail"
             android:scaleType="centerCrop" />
 
