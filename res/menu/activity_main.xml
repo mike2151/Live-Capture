@@ -30,4 +30,10 @@
         android:icon="@drawable/ic_camera"
         android:title="@string/camera"
         android:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_question"
+        android:title="@string/help"
+        android:showAsAction="ifRoom"/>
+
 </menu>

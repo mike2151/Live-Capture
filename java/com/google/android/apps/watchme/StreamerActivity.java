@@ -19,6 +19,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -26,6 +28,7 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ToggleButton;
 
 import com.google.android.apps.watchme.util.Utils;
@@ -41,7 +44,7 @@ public class StreamerActivity extends Activity {
     // TODO: Stop hardcoding this and read values from the camera's supported sizes.
     public static final int CAMERA_WIDTH = 640;
     public static final int CAMERA_HEIGHT = 480;
-
+    public boolean STREAMING = true;
     // Member variables
     private StreamerService streamerService;
     private ServiceConnection streamerConnection = new ServiceConnection() {
@@ -92,17 +95,44 @@ public class StreamerActivity extends Activity {
             Log.e(MainActivity.APP_NAME, "Failed to bind StreamerService!");
         }
 
-        final ToggleButton toggleButton = (ToggleButton) findViewById(R.id.toggleBroadcasting);
+        /*
+
+        final Button pausebutton = (Button) findViewById(R.id.pauseevent);
+        final Button toggleButton = (Button) findViewById(R.id.toggleBroadcasting);
+        toggleButton.setEnabled(false);
         toggleButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (toggleButton.isChecked()) {
-                    streamerService.startStreaming(rtmpUrl);
-                } else {
-                    streamerService.stopStreaming();
+               if (STREAMING = true) {
+
+               } else {
+
+                   streamerService.startStreaming(rtmpUrl);
+                   pausebutton.setEnabled(true);
+                   toggleButton.setEnabled(false);
+                 //  toggleButton.setHintTextColor(Color.parseColor("#000000"));
+
                 }
             }
         });
+
+        pausebutton.setEnabled(true);
+        pausebutton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (STREAMING = true) {
+                    streamerService.stopStreaming();
+                    pausebutton.setEnabled(false);
+                    //pausebutton.setHintTextColor(Color.parseColor("#000000"));
+                    toggleButton.setEnabled(true);
+                    STREAMING = false;
+                } else {
+
+
+                }
+            }
+        });
+        */
     }
 
     @Override

@@ -77,7 +77,9 @@ public class YouTubeApi {
 
             // Create LiveBroadcastStatus with privacy status.
             LiveBroadcastStatus status = new LiveBroadcastStatus();
-            status.setPrivacyStatus("unlisted");
+
+            //changed to public
+            status.setPrivacyStatus("public");
 
             LiveBroadcast broadcast = new LiveBroadcast();
             broadcast.setKind("youtube#liveBroadcast");

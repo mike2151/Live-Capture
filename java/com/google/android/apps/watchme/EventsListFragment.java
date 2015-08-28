@@ -95,6 +95,7 @@ public class EventsListFragment extends Fragment implements
     }
 
     public void setProfileInfo() {
+        /*
         if (!mGoogleApiClient.isConnected()
                 || Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) == null) {
             ((ImageView) getView().findViewById(R.id.avatar))
@@ -112,6 +113,7 @@ public class EventsListFragment extends Fragment implements
                         .setText(currentPerson.getDisplayName());
             }
         }
+        */
     }
 
     @Override

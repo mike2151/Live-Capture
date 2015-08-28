@@ -29,14 +29,16 @@
     <string name="avatar">avatar</string>
     <string name="activeStreamingStatus">Currently streaming video.</string>
     <string name="activeStreamingLabel">Watch Me is streaming!</string>
-    <string name="loadingEvents">Loading events. Please wait…</string>
-    <string name="creatingEvent">Creating event. Please wait…</string>
+    <string name="loadingEvents">Loading Scheduled Events...</string>
+    <string name="creatingEvent">Creating Event...</string>
     <string name="streamingOn">STREAMING</string>
     <string name="streamingOff">PAUSED</string>
+    <string name="pauseevent">PAUSE</string>
     <string name="startEvent">START EVENT</string>
     <string name="endEvent">END EVENT</string>
     <string name="startingEvent">Starting event. Please wait…</string>
     <string name="endingEvent">Ending event. Please wait…</string>
     <string name="videoThumbnail">video thumbnail</string>
     <string name="camera">Switch Cameras</string>
+    <string name="help">Help</string>
 </resources>

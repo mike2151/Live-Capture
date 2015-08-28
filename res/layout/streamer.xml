@@ -26,43 +26,58 @@
 
     <com.google.android.apps.watchme.Preview
         android:id="@+id/surfaceViewPreview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_centerInParent="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#eee"
-        android:divider="?android:dividerVertical"
-        android:showDividers="middle">
 
-        <ToggleButton
+        android:divider="?android:dividerVertical"
+      >
+
+       <!-- <Button
             android:id="@+id/toggleBroadcasting"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:checked="true"
-            android:drawableTop="@drawable/ic_device_access_video"
+
             android:ellipsize="end"
-            android:enabled="true"
             android:fontFamily="sans-serif-condensed"
+            android:hint="@string/streamingOn"
             android:maxLines="2"
+            android:onClick="endEvent"
             android:padding="8dp"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="#c00"
-            android:textOff="@string/streamingOff"
-            android:textOn="@string/streamingOn"
+            android:textColorHint="#09c"
             android:textStyle="bold" />
+        <Button
+            android:id="@+id/pauseevent"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
 
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="@string/pauseevent"
+            android:maxLines="2"
+            android:onClick="endEvent"
+            android:padding="8dp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColorHint="#00ff00"
+            android:textStyle="bold" />
+            -->
         <Button
             android:id="@+id/endEvent"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_av_play_arrow"
+
             android:ellipsize="end"
             android:fontFamily="sans-serif-condensed"
             android:hint="@string/endEvent"
@@ -70,7 +85,7 @@
             android:onClick="endEvent"
             android:padding="8dp"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColorHint="#09c"
+            android:textColorHint="#c00"
             android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>
