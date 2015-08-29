@@ -19,13 +19,23 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.apps.watchme.util.Utils;
@@ -39,9 +49,22 @@ import com.google.android.apps.watchme.util.YouTubeApi;
 public class StreamerActivity extends Activity {
     // CONSTANTS
     // TODO: Stop hardcoding this and read values from the camera's supported sizes.
-    public static final int CAMERA_WIDTH = 640;
-    public static final int CAMERA_HEIGHT = 480;
 
+
+    public static final int width;
+    public static final int height;
+
+    static {
+        DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
+        width = dm.widthPixels;
+        height = dm.heightPixels;
+    }
+
+
+
+    public static final int CAMERA_WIDTH = width;
+    public static final int CAMERA_HEIGHT = height;
+    public boolean STREAMING = true;
     // Member variables
     private StreamerService streamerService;
     private ServiceConnection streamerConnection = new ServiceConnection() {
@@ -72,11 +95,14 @@ public class StreamerActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         Log.d(MainActivity.APP_NAME, "onCreate");
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         broadcastId = getIntent().getStringExtra(YouTubeApi.BROADCAST_ID_KEY);
         //Log.v(MainActivity.APP_NAME, broadcastId);
 
         rtmpUrl = getIntent().getStringExtra(YouTubeApi.RTMP_URL_KEY);
+
 
         if (rtmpUrl == null) {
             Log.w(MainActivity.APP_NAME, "No RTMP URL was passed in; bailing.");
@@ -87,22 +113,57 @@ public class StreamerActivity extends Activity {
         setContentView(R.layout.streamer);
         preview = (Preview) findViewById(R.id.surfaceViewPreview);
 
+
+
+
+
+
+
+
+
         if (!bindService(new Intent(this, StreamerService.class), streamerConnection,
                 BIND_AUTO_CREATE | BIND_DEBUG_UNBIND)) {
             Log.e(MainActivity.APP_NAME, "Failed to bind StreamerService!");
         }
 
-        final ToggleButton toggleButton = (ToggleButton) findViewById(R.id.toggleBroadcasting);
+        /*
+
+        final Button pausebutton = (Button) findViewById(R.id.pauseevent);
+        final Button toggleButton = (Button) findViewById(R.id.toggleBroadcasting);
+        toggleButton.setEnabled(false);
         toggleButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (toggleButton.isChecked()) {
-                    streamerService.startStreaming(rtmpUrl);
-                } else {
-                    streamerService.stopStreaming();
+               if (STREAMING = true) {
+
+               } else {
+
+                   streamerService.startStreaming(rtmpUrl);
+                   pausebutton.setEnabled(true);
+                   toggleButton.setEnabled(false);
+                 //  toggleButton.setHintTextColor(Color.parseColor("#000000"));
+
                 }
             }
         });
+
+        pausebutton.setEnabled(true);
+        pausebutton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (STREAMING = true) {
+                    streamerService.stopStreaming();
+                    pausebutton.setEnabled(false);
+                    //pausebutton.setHintTextColor(Color.parseColor("#000000"));
+                    toggleButton.setEnabled(true);
+                    STREAMING = false;
+                } else {
+
+
+                }
+            }
+        });
+        */
     }
 
     @Override

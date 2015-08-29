@@ -16,8 +16,10 @@ package com.google.android.apps.watchme;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -160,6 +162,21 @@ public class MainActivity extends Activity implements
         getLiveEvents();
     }
 
+    public void displayhelp() {
+        new AlertDialog.Builder(this)
+                .setTitle("Help")
+                .setMessage("HELP MESSAGE GOES HERE. LOCATED ON LINE 168 OF MAINACTIVITY.JAVA")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+
+                .setIcon(android.R.drawable.ic_menu_help)
+                .show();
+
+    }
+
     //function to switch cameras
     public void switchcameras() {
       //STILL NEEDS TO BE DONE
@@ -194,6 +211,9 @@ public class MainActivity extends Activity implements
                 return true;
             case R.id.switchcameras:
                 switchcameras();
+                return true;
+            case R.id.help:
+                displayhelp();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -295,6 +315,8 @@ public class MainActivity extends Activity implements
     private void chooseAccount() {
         startActivityForResult(credential.newChooseAccountIntent(),
                 REQUEST_ACCOUNT_PICKER);
+
+
     }
 
     @Override

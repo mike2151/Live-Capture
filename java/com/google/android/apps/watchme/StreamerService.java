@@ -110,7 +110,7 @@ public class StreamerService extends Service {
         // The PendingIntent to launch our activity if the user selects this notification.
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-
+/*
         Notification notification = new Notification.Builder(getApplicationContext())
                 .setContentTitle(getText(R.string.activeStreamingLabel))
                 .setContentText(getText(R.string.activeStreamingStatus))
@@ -120,6 +120,7 @@ public class StreamerService extends Service {
                 .build();
 
         notifyManager.notify(STREAMER_NOTIFICATION_ID, notification);
+        */
     }
 
     public class LocalBinder extends Binder {

@@ -15,14 +15,23 @@
 package com.google.android.apps.watchme;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.os.Message;
+import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -95,6 +104,8 @@ public class EventsListFragment extends Fragment implements
     }
 
     public void setProfileInfo() {
+        //FOR TOP AREA OF SCREEN
+        /*
         if (!mGoogleApiClient.isConnected()
                 || Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) == null) {
             ((ImageView) getView().findViewById(R.id.avatar))
@@ -112,6 +123,7 @@ public class EventsListFragment extends Fragment implements
                         .setText(currentPerson.getDisplayName());
             }
         }
+        */
     }
 
     @Override
@@ -225,12 +237,54 @@ public class EventsListFragment extends Fragment implements
             EventData event = mEvents.get(position);
             ((TextView) convertView.findViewById(android.R.id.text1))
                     .setText(event.getTitle());
+
             mImageFetcher.loadImage(event.getThumbUri(),
                     (ImageView) convertView.findViewById(R.id.thumbnail));
             if (mGoogleApiClient.isConnected()) {
                 ((PlusOneButton) convertView.findViewById(R.id.plus_button))
                         .initialize(event.getWatchUri(), null);
+                //displays URL of video: event.getWatchUri()
+
             }
+            final String urltext = event.getWatchUri();
+         //create textview to make text copiable
+           final  TextView showText = new TextView(getActivity());
+            showText.setText(urltext);
+            showText.setTextIsSelectable(true);
+            ((Button) convertView.findViewById(R.id.url)).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    //used to get around final error
+                    TextView showText2 = showText;
+
+                    AlertDialog ad = new AlertDialog.Builder(getActivity())
+                            .create();
+
+                    ad.setCancelable(false);
+                    ad.setTitle("URL of Stream");
+                    if (showText2.getParent() == null) {
+                        ad.setView(showText2);
+                    } else {
+                        showText2 = null; //set it to null
+
+                        // now initialized yourView and its component again
+                        ad.setMessage(urltext);
+                    }
+
+                    ad.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            //...
+
+                        } });
+
+
+                    ad.show();
+
+
+                }
+            });
+
             convertView.findViewById(R.id.main_target).setOnClickListener(
                     new View.OnClickListener() {
                         @Override
@@ -238,7 +292,9 @@ public class EventsListFragment extends Fragment implements
                             mCallbacks.onEventSelected(mEvents.get(position));
                         }
                     });
+
             return convertView;
+
         }
     }
 }
