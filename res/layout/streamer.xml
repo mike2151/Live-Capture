@@ -22,6 +22,7 @@
     android:divider="?android:dividerHorizontal"
     android:horizontalSpacing="10dp"
     android:showDividers="middle"
+    android:id="@+id/layoutforpreview"
     android:verticalSpacing="10dp">
 
     <com.google.android.apps.watchme.Preview

@@ -178,7 +178,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
             parameters.setPreviewSize(StreamerActivity.CAMERA_WIDTH, StreamerActivity.CAMERA_HEIGHT);
             requestLayout();
 
-            camera.setParameters(parameters);
+           // camera.setParameters(parameters);
             try {
                 camera.setPreviewDisplay(holder);
             } catch (IOException e) {
