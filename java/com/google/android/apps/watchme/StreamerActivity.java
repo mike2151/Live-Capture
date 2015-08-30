@@ -14,6 +14,7 @@
 
 package com.google.android.apps.watchme;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,11 +22,13 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -97,6 +100,14 @@ public class StreamerActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.app_blue)));
+        bar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Live Capture</font>"));
+        bar.setDisplayShowTitleEnabled(false);
+        bar.setDisplayShowTitleEnabled(true);
+
 
         broadcastId = getIntent().getStringExtra(YouTubeApi.BROADCAST_ID_KEY);
         //Log.v(MainActivity.APP_NAME, broadcastId);

@@ -17,20 +17,20 @@
 <resources>
 
     <string name="app_name">Live Capture</string>
-    <string name="button_create">CREATE LIVE EVENT</string>
-    <string name="connection_to_google_play_failed">Connection to Play Services failed.</string>
+    <string name="button_create">CREATE LIVE STREAM</string>
+    <string name="connection_to_google_play_failed">You must choose an account.</string>
     <string name="not_signed_in">Not signed in</string>
     <string name="error">Error</string>
     <string name="error_format">[Error] %s</string>
     <string name="refresh">Refresh</string>
     <string name="accounts">Accounts</string>
     <string name="pick_one_of_your_videos_to_submit">Create a new live event or click on one of your events to start streaming</string>
-    <string name="no_videos_to_show_here_">No videos to show here.</string>
+    <string name="no_videos_to_show_here_">Start A Live Stream Below</string>
     <string name="avatar">avatar</string>
     <string name="activeStreamingStatus">Currently streaming video.</string>
     <string name="activeStreamingLabel">Watch Me is streaming!</string>
     <string name="loadingEvents">Loading Scheduled Events...</string>
-    <string name="creatingEvent">Creating Event...</string>
+    <string name="creatingEvent">Creating Live Stream Event...</string>
     <string name="streamingOn">STREAMING</string>
     <string name="streamingOff">PAUSED</string>
     <string name="pauseevent">PAUSE</string>
@@ -41,4 +41,21 @@
     <string name="videoThumbnail">video thumbnail</string>
     <string name="camera">Switch Cameras</string>
     <string name="help">Help</string>
+    <string name="description">Novel application that lets you live stream to YouTube right from your Android device</string>
+    <string name="swipetolearn">Swipe to learn more ></string>
+    <string name="perfectfor">Live Capture is prefect for...</string>
+    <string name="vloggers">Vloggers</string>
+    <string name="explorers">Explorers</string>
+    <string name="programmers">Programmers</string>
+    <string name="gamers">Gamers</string>
+    <string name="musicians">Musicians</string>
+    <string name="teenagers">Teenagers</string>
+    <string name="fans">Fans</string>
+    <string name="anyone">Anyone!</string>
+    <string name="left">&lt; </string>
+    <string name="right"> ></string>
+    <string name="stream">Stream instantly with the press of one button</string>
+    <string name="socialtitle">See people streaming using the application around the world</string>
+    <string name="getstartedtitle">Get streaming on Android today</string>
+
 </resources>
