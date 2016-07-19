@@ -15,6 +15,7 @@
 package com.google.android.apps.watchme;
 
 import android.accounts.AccountManager;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -22,9 +23,15 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +39,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.apps.watchme.util.EventData;
@@ -53,13 +61,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 /**
  * @author Ibrahim Ulukaya <ulukaya@google.com>
  *         <p/>
  *         Main activity class which handles authorization and intents.
  */
-public class MainActivity extends Activity implements
+public class MainActivity extends FragmentActivity implements
         EventsListFragment.Callbacks {
     public static final String ACCOUNT_KEY = "158665756694-rbktce2g309u277jvltqkcga5129pjeg.apps.googleusercontent.com";
     public static final String APP_NAME = "WatchMe";
@@ -74,8 +83,9 @@ public class MainActivity extends Activity implements
     private String mChosenAccountName;
     private ImageFetcher mImageFetcher;
     private EventsListFragment mEventsListFragment;
-
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    public String m_titletext = "";
+    public String m_description = "";
 
 
 
@@ -85,6 +95,12 @@ public class MainActivity extends Activity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.app_blue)));
+        bar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Live Capture</font>"));
+        bar.setDisplayShowTitleEnabled(false);
+        bar.setDisplayShowTitleEnabled(true);
         ensureFetcher();
 
         credential = GoogleAccountCredential.usingOAuth2(
@@ -102,6 +118,24 @@ public class MainActivity extends Activity implements
 
         mEventsListFragment = (EventsListFragment) getFragmentManager()
                 .findFragmentById(R.id.list_fragment);
+
+        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
+
+
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange), getResources().getColor(R.color.blue), getResources().getColor(R.color.green), getResources().getColor(R.color.yellow));
+
+
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+
+
+        });
+
     }
 
     public void startStreaming(EventData event) {
@@ -128,7 +162,77 @@ public class MainActivity extends Activity implements
     }
 
     public void createEvent(View view) {
-        new CreateLiveEventTask().execute();
+        //allow user to make title for livestream
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Enter Title");
+
+// Set up the input
+        final EditText input = new EditText(MainActivity.this);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+// Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_titletext = input.getText().toString();
+
+
+                //DESCRIPTION TEXT INPUT
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Enter Description");
+
+// Set up the input
+                final EditText input = new EditText(MainActivity.this);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+// Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_description = input.getText().toString();
+                        //now description
+
+                        //once ok  is hit, then execute new stream
+                        new CreateLiveEventTask().execute();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+
+
+
+
+
+
+                //end description input
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+
+
+
+
+
     }
 
     private void ensureFetcher() {
@@ -379,6 +483,7 @@ public class MainActivity extends Activity implements
 
         @Override
         protected void onPreExecute() {
+
             progressDialog = ProgressDialog.show(MainActivity.this, null,
                     getResources().getText(R.string.creatingEvent), true);
         }
@@ -393,8 +498,11 @@ public class MainActivity extends Activity implements
                 String date = new Date().toString();
 
 
-               YouTubeApi.createLiveEvent(youtube, "Event - " + date,
-                        "A live streaming event - " + date);
+
+
+               YouTubeApi.createLiveEvent(youtube, m_description,
+                       m_titletext);
+
                 return YouTubeApi.getLiveEvents(youtube);
 
             } catch (UserRecoverableAuthIOException e) {

@@ -67,7 +67,18 @@
              android:layout_height="match_parent"
              android:gravity="center"
              android:padding="16dp"
-             android:text="@string/no_videos_to_show_here_" />
+             android:text="" />
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/down"
+             android:src="@drawable/ic_down"
+             android:layout_gravity="center"
+             android:layout_alignParentBottom="true"
+             android:layout_marginTop="30dp" />
+
+
      </FrameLayout>
 
  </LinearLayout>

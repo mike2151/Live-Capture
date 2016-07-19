@@ -23,8 +23,10 @@ import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.IntentSender;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,20 +64,27 @@ public class EventsListFragment extends Fragment implements
     private ImageWorker mImageFetcher;
     private GoogleApiClient mGoogleApiClient;
     private GridView mGridView;
-
+    public ImageView thumbnailpicture;
     public EventsListFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_PROFILE)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
+
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +95,10 @@ public class EventsListFragment extends Fragment implements
         TextView emptyView = (TextView) listView
                 .findViewById(android.R.id.empty);
         mGridView.setEmptyView(emptyView);
+        emptyView.setVisibility(View.GONE);
+        ImageView downimage = (ImageView) listView
+                .findViewById(R.id.down);
+        mGridView.setEmptyView(downimage);
         return listView;
     }
 
@@ -237,9 +250,15 @@ public class EventsListFragment extends Fragment implements
             EventData event = mEvents.get(position);
             ((TextView) convertView.findViewById(android.R.id.text1))
                     .setText(event.getTitle());
+            //ignoring default thumbnail cuz it looks bad
+            //mImageFetcher.loadImage(event.getThumbUri(),
+              //      (ImageView) convertView.findViewById(R.id.thumbnail));
 
-            mImageFetcher.loadImage(event.getThumbUri(),
-                    (ImageView) convertView.findViewById(R.id.thumbnail));
+
+
+
+
+
             if (mGoogleApiClient.isConnected()) {
                 ((PlusOneButton) convertView.findViewById(R.id.plus_button))
                         .initialize(event.getWatchUri(), null);
@@ -276,7 +295,8 @@ public class EventsListFragment extends Fragment implements
 
                             //...
 
-                        } });
+                        }
+                    });
 
 
                     ad.show();
